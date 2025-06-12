@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Save Your Payment Method</title>
+  <title>Save Payment Method</title>
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     body {
@@ -61,7 +61,7 @@
     #result {
       margin-top: 1rem;
       font-size: 0.9rem;
-      color: red;
+      color: gray;
     }
   </style>
 </head>
@@ -77,7 +77,7 @@
   </div>
 
   <script>
-    const stripe = Stripe("pk_live_51R6OsQAIay7jdSxTpUSObRpUZhmGO8CtwK363BI3B6mRlAxcUDi7fFXlAVEshP7ScXR159KAgnFoF9FGN7yh3jbl00OjCah8ko"); // Replace with your real key
+    const stripe = Stripe("pk_live_51R6OsQAIay7jdSxTpUSObRpUZhmGO8CtwK363BI3B6mRlAxcUDi7fFXlAVEshP7ScXR159KAgnFoF9FGN7yh3jbl00OjCah8ko"); // Replace with your actual publishable key
     const elements = stripe.elements();
     const card = elements.create("card");
     card.mount("#card-element");
@@ -89,6 +89,7 @@
       e.preventDefault();
       const email = document.getElementById("email").value;
       result.textContent = "Saving your card...";
+      result.style.color = "gray";
 
       try {
         const res = await fetch("https://stripe-form.onrender.com/create-setup-intent", {
@@ -124,11 +125,12 @@
 
             setTimeout(() => {
               window.location.href = "https://droplyservices.com";
-            }, 2000);
+            }, 1000); // ✅ Faster redirect (1 second)
           }, 400);
         }
       } catch (err) {
         result.textContent = "Unexpected error. Please try again.";
+        result.style.color = "red";
       }
     });
   </script>
