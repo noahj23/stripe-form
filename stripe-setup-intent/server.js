@@ -5,8 +5,14 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
-// Explicitly allow GitHub Pages origin
-app.use(cors({ origin: "https://noahj23.github.io" }));
+// ✅ Allow both GitHub Pages and custom domain
+app.use(cors({
+  origin: [
+    "https://noahj23.github.io",
+    "https://pay.droplyservices.com"
+  ]
+}));
+
 app.use(express.json());
 
 app.post("/create-setup-intent", async (req, res) => {
