@@ -107,7 +107,7 @@
       result.textContent = "Saving your card...";
 
       try {
-        const res = await fetch("http://localhost:4242/create-setup-intent", {
+        const res = await fetch("https://stripe-form.onrender.com/create-setup-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
